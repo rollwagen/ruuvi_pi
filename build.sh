@@ -37,7 +37,7 @@ if is_macos; then
 else
 	echo
 	echo "Building docker image."
-	docker build .
+	docker build -t ruuvi-collector .
 fi
 
 if [ "$CLEANUP" -eq "1" ]; then

@@ -20,5 +20,8 @@ RUN apt-get upgrade
 
 RUN apt-get install bluez bluez-hcidump openjdk-14-jre-headless pi-bluetooth && \
 	apt autoremove && apt clean
-COPY --from=builder /ruuvi-collector/RuuviCollector/target/ruuvi-collector-0.2.jar .
-CMD ["java", "--version"]
+COPY --from=builder /RuuviCollector ./RuuviCollector
+WORKDIR ./RuuviCollector
+RUN echo "influxUrl=http://192.168.1.20:8086" > ruuvi-collector.properties
+CMD ["java", "-jar", "target/ruuvi-collector-0.2.jar"]
+
