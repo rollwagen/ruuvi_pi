@@ -33,9 +33,8 @@ SELECT mean("temperature") FROM "autogen"."ruuvi_measurements" WHERE $timeFilter
 
 ### Ruuvi-Collector:Building
 
----
+
 :warning: InfluxDB connection hardcoded in Dockerfile `RUN echo "influxUrl=http://192.168.1.20:8086" > ruuvi-collector.properties`
----
 
 ```sh
 ./build.sh
