@@ -1,9 +1,9 @@
 FROM maven:3.5.3-jdk-8-alpine AS builder
 
 RUN apk update && apk add --no-cache git
-ADD . /ruuvi-collector
-WORKDIR /ruuvi-collector
-RUN git clone https://github.com/Scrin/RuuviCollector && cd RuuviCollector && mvn clean package
+RUN git clone https://github.com/Scrin/RuuviCollector
+WORKDIR ./RuuviCollector 
+RUN mvn clean package
 
 
 
@@ -18,7 +18,7 @@ RUN apt-get update
 RUN apt-get install apt-utils
 RUN apt-get upgrade
 
-RUN apt-get install bluez bluez-hcidump openjdk-14-jre-headless pi-bluetooth
-RUN apt autoremove
-RUN apt clean
+RUN apt-get install bluez bluez-hcidump openjdk-14-jre-headless pi-bluetooth && \
+	apt autoremove && apt clean
+COPY --from=builder /ruuvi-collector/RuuviCollector/target/ruuvi-collector-0.2.jar .
 CMD ["java", "--version"]

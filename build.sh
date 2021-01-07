@@ -12,7 +12,6 @@ do
     c) CLEANUP=1 ;;
   esac
 done
-echo $CLEANUP
 
 is_macos() {
  case "$(uname -s)" in
@@ -31,15 +30,19 @@ cleanup() {
 
 if is_macos; then
 	echo
-        echo "Build script for 'macOS' not yet implemented."
-        exit 1
+        echo "Building docker image for platform 'linux/arm64'."
+	#docker buildx build --platform linux/arm64,linux/amd64 -t rollwagen/test --push .
+	#docker buildx build --platform linux/arm64 . --load
+	docker buildx build --platform linux/arm64 .
 else
+	echo
 	echo "Building docker image."
 	docker build .
 fi
 
 if [ "$CLEANUP" -eq "1" ]; then
 	echo "Cleaning up (deleting) unused images and containers."
+	cleanup
 fi
 
 
