@@ -1,5 +1,7 @@
 # ruuvi
 
+![Ruuvi Grafana Dashboard](/doc/ruuvi_grafana.png)
+
 ### Docker: InfluxDB
 ```sh
 docker run --name=influxdb -d -p 8086:8086 influxdb
