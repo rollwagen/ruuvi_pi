@@ -50,7 +50,7 @@ docker run --name ruuvi-collector --privileged --net=host --detach --restart alw
 
 ### Links / References
 
-[ruuvi Environmental Sensor] (https://ruuvi.com/)
+[ruuvi Environmental Sensor](https://ruuvi.com/)
 
 [Collecting RuuviTag measurements and displaying them with Grafana](https://f.ruuvi.com/t/collecting-ruuvitag-measurements-and-displaying-them-with-grafana/267)
 
