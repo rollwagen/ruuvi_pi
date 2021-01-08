@@ -4,8 +4,9 @@
 
 ### Docker: InfluxDB
 ```sh
-docker run --name=influxdb -d -p 8086:8086 influxdb
+docker run --name=influxdb --detach --restart always -p 8086:8086 influxdb
 docker exec -it influxdb influx
+
 ```
 
 ```
@@ -15,6 +16,10 @@ show databases
 use database ruuvi
 show measurements
 select * from ruuvi_measurements
+
+# backup - restore
+influxd backup -portable -database ruuvi /tmp/backup/
+influxd restore -portable -db ruuvi /tmp/backup/
 ```
 
 ### Docker: Grafana
