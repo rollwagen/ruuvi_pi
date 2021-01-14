@@ -14,14 +14,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "APT::Get::Assume-Yes \"true\";" >> /etc/apt/apt.conf.d/90forceyes
 RUN echo "APT::Get::force-yes \"true\";" >> /etc/apt/apt.conf.d/90forceyes
 
-RUN apt-get update 
-RUN apt-get install apt-utils
-RUN apt-get upgrade
-
-RUN apt-get install bluez bluez-hcidump openjdk-14-jre-headless pi-bluetooth && \
-	apt autoremove && apt clean
+RUN apt-get update && apt-get install --no-install-recommends \ 
+	apt-utils \
+	bluez \
+	bluez-hcidump \
+	openjdk-14-jre-headless pi-bluetooth \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /RuuviCollector ./RuuviCollector
 WORKDIR ./RuuviCollector
-RUN echo "influxUrl=http://192.168.1.20:8086" > ruuvi-collector.properties
+RUN echo "influxUrl=http://192.168.1.10:8086" > ruuvi-collector.properties
 CMD ["java", "-jar", "target/ruuvi-collector-0.2.jar"]
 
